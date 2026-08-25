@@ -4,7 +4,7 @@
 
 class OrderBook {
 public:
-    void add_order(Order& order);
+    uint64_t add_order(Order& order);
     double best_bid();
     double best_ask();
 
@@ -13,12 +13,16 @@ public:
 private:
     std::map<double, std::deque<Order>> buy_orders;
     std::map<double, std::deque<Order>> sell_orders;
+    uint64_t next_order_id = 0;
     uint64_t next_timestamp = 0;
 };
 
 // Pushes an order into the passed in order book (buy or sell) and assigns a timestamp to it
-// Note that this function modifies the order's timestamp
-void OrderBook::add_order(Order& order) {
+// Note that this function modifies the order's timestamp and id which it returns
+uint64_t OrderBook::add_order(Order& order) {
+    order.id = next_order_id;
+    next_order_id++;
+
     order.timestamp = next_timestamp;
     next_timestamp++;
 
@@ -29,6 +33,8 @@ void OrderBook::add_order(Order& order) {
         auto& order_list = sell_orders[order.price];
         order_list.push_back(order);
     }
+
+    return order.id;
 }
 
 double OrderBook::best_bid() {

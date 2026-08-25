@@ -16,7 +16,7 @@ int main() {
     Order sell4{3, 52.33, 40, false, 0};
 
     OrderBook order_book;
-    order_book.add_order(buy1);
+    uint64_t order_id = order_book.add_order(buy1);
     order_book.add_order(sell1);
     order_book.add_order(buy3);
     order_book.add_order(sell4);
@@ -26,7 +26,7 @@ int main() {
     order_book.add_order(sell2);
 
     std::cout << "Scaffold compiles.\n";
-    std::cout << "Sample order: id=" << buy1.id
+    std::cout << "Sample order: id=" << buy1.id << " or " << order_id
               << " side=" << (buy1.is_buy ? "BUY" : "SELL")
               << " price=" << buy1.price
               << " qty=" << buy1.quantity << "\n";
