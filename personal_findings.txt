@@ -1,0 +1,4 @@
+1. A limit order book is a real-time record of all unexecuted buy and sell orders. It's primary focus is to
+    automatically match buyers and sellers when prices align. (The Steam Market might be an example!)
+    Notably, the order book prioritizes the highest buy price (best bid) and the lowest sell price (best ask).
+    This means orders are matched by best price first and timestamp second.
