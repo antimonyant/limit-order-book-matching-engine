@@ -2,3 +2,18 @@
     automatically match buyers and sellers when prices align. (The Steam Market might be an example!)
     Notably, the order book prioritizes the highest buy price (best bid) and the lowest sell price (best ask).
     This means orders are matched by best price first and timestamp second.
+2. Crossing price
+    This is the price at which a broker matches a buy order and a sell order from two different clients.
+    Crosses when a buy is >= best sell price or when a sell is <= best buy price
+    Trades happen at the best price level and not at the proposed order price
+3. CMakeLists vs makefile
+    CMakeLists create makefiles that build your project. They also automatically find the correct dependencies
+    based on the type of system you have. Much better to build a CMakeLists file then multiple makefiles
+4. Designated initializers C++ 20 feature
+    Can initialize objects like structs by using the member names inside braced initialization lists
+    For example:
+    Trade trade{
+            .price = resting_order.price,
+            .quantity = trade_amount,
+            .buy_order_id = order.is_buy ? order.id : resting_order.id,
+            .sell_order_id = order.is_buy ? resting_order.id : order.id};
