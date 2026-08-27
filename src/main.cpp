@@ -5,15 +5,15 @@
 
 
 int main() {
-    Order buy1{1, 50.10, 100, true, 0};
-    Order buy2{2, 50.10, 100, true, 0};
-    Order buy3{3, 48.6, 30, true, 0};
-    Order buy4{3, 51.32, 40, true, 0};
+    Order buy1{1, 50.10, 100, true, 0, OrderType::Limit};
+    Order buy2{2, 50.10, 100, true, 0, OrderType::Limit};
+    Order buy3{3, 48.6, 30, true, 0, OrderType::Limit};
+    Order buy4{3, 51.32, 40, true, 0, OrderType::Limit};
 
-    Order sell1{1, 50.00, 100, false, 0};
-    Order sell2{2, 50.00, 100, false, 0};
-    Order sell3{3, 49.12, 30, false, 0};
-    Order sell4{3, 52.33, 40, false, 0};
+    Order sell1{1, 50.00, 100, false, 0, OrderType::Limit};
+    Order sell2{2, 50.00, 100, false, 0, OrderType::Limit};
+    Order sell3{3, 49.12, 30, false, 0, OrderType::Limit};
+    Order sell4{3, 52.33, 40, false, 0, OrderType::Limit};
 
     OrderBook order_book;
     uint64_t order_id = order_book.add_order(buy1);

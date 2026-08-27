@@ -3,6 +3,8 @@
 #include <cstdint>
 
 
+enum class OrderType {Limit, Market};
+
 struct Order {
     uint64_t id;
     double price;         // ignored for market orders
@@ -10,4 +12,5 @@ struct Order {
     bool is_buy;          // true for buy, false for sell
     uint64_t timestamp;   // monotonically increasing arrival order, used for
                           //    time priority within a price level
+    OrderType type;       // Limit or Market order
 };
