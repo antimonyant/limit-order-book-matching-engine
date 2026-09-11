@@ -60,6 +60,7 @@ double OrderBook::best_ask() {
 }
 
 void OrderBook::print_order_book() const {
+    std::cout << "-----Start Print-----\n";
     std::cout << "Buy Orders:\n";
     for (auto it = buy_orders.rbegin(); it != buy_orders.rend(); ++it) {
         const auto& [price, orders] = *it;
@@ -74,6 +75,7 @@ void OrderBook::print_order_book() const {
             std::cout << "ID: " << order.id << ", Price: " << price << ", Quantity: " << order.quantity << ", Timestamp: " << order.timestamp << "\n";
         }
     }
+    std::cout << "------End Print------\n\n";
 }
 
 std::vector<Trade> OrderBook::match_order(Order& order) {

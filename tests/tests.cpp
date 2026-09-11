@@ -1,21 +1,37 @@
 #include <gtest/gtest.h>
 #include "OrderBook.h"
 
-// No main() here — gtest_main (linked via CMake) supplies it, and it
-// automatically finds and runs every TEST(...) block below.
+// gtest_main (linked via CMake) supplies the main function which automatically finds and 
+//  runs every TEST block below.
 
 TEST(MatchingTest, SingleFullFill) {
     OrderBook book;
     // TODO: add one resting sell order
-    // TODO: submit a market/limit buy that exactly matches its quantity
-    // auto trades = book.match_order(incoming);
+    Order sell1{1, 50.00, 100, false, 0, OrderType::Limit};
+    Order sell2{2, 67.91, 42, false, 1, OrderType::Limit};
+    book.add_order(sell1);
+    book.add_order(sell2);
+    book.print_order_book();
+    // Match a LIMIT buy that exactly matches its quantity
+    Order buyLimit{1, 50.00, 100, true, 0, OrderType::Limit};
+    auto trades = book.match_order(buyLimit);
+    book.print_order_book();
 
-    // TODO: ASSERT_EQ(trades.size(), 1);  // ASSERT because indexing trades[0]
-    //       next is only valid if this passed
-    // TODO: EXPECT_EQ(trades[0].quantity, 100);
-    // TODO: EXPECT_DOUBLE_EQ(trades[0].price, 50.10);
-    // TODO: check the resting side is now empty — e.g.
-    //       EXPECT_EQ(book.best_ask(), YOUR_SENTINEL);
+    // assert first so that trades[0] is valid
+    ASSERT_EQ(trades.size(), 1);
+    EXPECT_EQ(trades[0].quantity, 100);
+    EXPECT_DOUBLE_EQ(trades[0].price, 50.00);
+    // check the resting side
+    EXPECT_EQ(book.best_ask(), 67.91);
+
+    // Match a MARKET buy that exactly matches its quantity
+    Order buyMarket{2, 71.00, 42, true, 1, OrderType::Market};
+    trades = book.match_order(buyMarket);
+    book.print_order_book();
+    ASSERT_EQ(trades.size(), 1);
+    EXPECT_EQ(trades[0].quantity, 42);
+    EXPECT_DOUBLE_EQ(trades[0].price, 67.91);
+    EXPECT_EQ(book.best_ask(), -1.0);
 }
 
 TEST(MatchingTest, PartialFill) {
