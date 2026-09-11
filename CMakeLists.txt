@@ -13,6 +13,13 @@ add_compile_options(-Wall -Wextra)
 add_executable(lob_sim src/main.cpp)
 target_include_directories(lob_sim PRIVATE include)
 
-# Tests are wired up on Day 3 once there's matching logic worth testing.
-# enable_testing()
-# add_subdirectory(tests)
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG v1.18.0
+)
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+add_subdirectory(tests)

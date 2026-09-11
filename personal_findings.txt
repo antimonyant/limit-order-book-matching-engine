@@ -17,3 +17,6 @@
             .quantity = trade_amount,
             .buy_order_id = order.is_buy ? order.id : resting_order.id,
             .sell_order_id = order.is_buy ? resting_order.id : order.id};
+5. Standard in CMakeLists to FetchContent testing frameworks like GoogleTest through its Github link. 
+    This means at Cmake configure time, Cmake downloads the GoogleTest source code which can then be linked to
+    from the test executable.
