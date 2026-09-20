@@ -13,6 +13,7 @@ public:
     std::vector<Trade> match_order(Order& order);
 
     void print_order_book() const;
+    double amount_at_front(bool is_buy, double price) const;
     
 private:
     std::map<double, std::deque<Order>> buy_orders;
@@ -76,6 +77,15 @@ void OrderBook::print_order_book() const {
         }
     }
     std::cout << "------End Print------\n\n";
+}
+
+double OrderBook::amount_at_front(bool is_buy, double price) const {
+    const auto& orders = is_buy ? buy_orders : sell_orders;
+    auto it = orders.find(price);
+    if (it != orders.end() && !it->second.empty()) {
+        return it->second.front().quantity;
+    }
+    return -1.0;
 }
 
 std::vector<Trade> OrderBook::match_order(Order& order) {

@@ -20,3 +20,5 @@
 5. Standard in CMakeLists to FetchContent testing frameworks like GoogleTest through its Github link. 
     This means at Cmake configure time, Cmake downloads the GoogleTest source code which can then be linked to
     from the test executable.
+
+Design Decisions
