@@ -22,3 +22,13 @@
     from the test executable.
 
 Design Decisions
+1. Orderbook holds orders in a map sorted by price levels. O(logn) insert/remove O(1) access to min/max
+2. Each price level in the map has a deque that is kept FIFO in order to ensure price time priority
+3. Two maps, one to hold only buys and the other holds only sells
+4. Timestamp and ID are assigned by the orderbook as private counters and not by the users
+5. add_order returns the assigned ID for cancellations
+6. best_bid() and best_ask() return -1.0 if there are no orders
+7. An unfilled marker order is dropped (IOC-style fill what you can, cancel rest)
+8. Partial fills mutate the resting order in place otherwise FIFO ordering could be broken
+9. Erase empty price levels or best_bid()/best_ask() could return an empty deque price level
+10. Recomputes the best price level within the loop (in match_order) so multiple level walks can occur
